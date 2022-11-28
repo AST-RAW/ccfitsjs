@@ -1,0 +1,18 @@
+{
+  "name": "@atoy40/ccfitsjs",
+  "version": "0.0.1",
+  "description": "Wrapper to the ccfits library",
+  "author": {
+    "name": "Anthony Hinsinger",
+    "email": "anthony.hinsinger@gmail.com"
+  },
+  "license": "ISC",
+  "gypfile": true,
+  "scripts": {
+    "prebuild": "node-gyp configure",
+    "build": "node-gyp build"
+  },
+  "dependencies": {
+    "node-addon-api": "^5.0.0"
+  }
+}
