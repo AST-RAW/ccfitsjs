@@ -8,6 +8,7 @@
       'cflags_cc': [ '-fexceptions', '-frtti', '-std=c++17' ],
       'libraries': [
         '-lCCfits',
+        '-lcfitsio',
       ],
       'xcode_settings': {
         'GCC_ENABLE_CPP_EXCEPTIONS': 'YES',

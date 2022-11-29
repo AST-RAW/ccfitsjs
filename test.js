@@ -1,6 +1,6 @@
 addon = require("./build/Release/ccfits-native");
 
-fits = new addon.Fits();
+fits = new addon.Fits("./fits/test.fits");
 
 hdu = fits.load();
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <HDU.h>
+#include <CCfits>
 #include <napi.h>
 
 class Hdu : public Napi::ObjectWrap<Hdu> {
@@ -13,10 +13,11 @@ class Hdu : public Napi::ObjectWrap<Hdu> {
     Napi::Value Bitpix(const Napi::CallbackInfo&);
     Napi::Value Comment(const Napi::CallbackInfo&);
     Napi::Value KeyWord(const Napi::CallbackInfo&);
+    Napi::Value Read(const Napi::CallbackInfo&);
 
   private:
     static Napi::FunctionReference constructor;
-    CCfits::HDU* _hdu;
+    CCfits::PHDU* _hdu;
 };
 
 /*

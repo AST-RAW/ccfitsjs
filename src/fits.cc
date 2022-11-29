@@ -1,6 +1,6 @@
 #include "fits.h"
 #include "hdu.h"
-#include <PHDU.h>
+#include <CCfits>
 
 Napi::FunctionReference Fits::constructor;
 
@@ -44,5 +44,7 @@ Napi::Value Fits::Load(const Napi::CallbackInfo& info) {
 
   CCfits::PHDU& phdu = this->_fits->pHDU();
 
-  return Hdu::NewInstance(Napi::External<CCfits::HDU>::New(env, &phdu));
+  //return Napi::Buffer<char>::Copy(env, static_cast<char*>(getHandle()->blob), getHandle()->bloblen);
+
+  return Hdu::NewInstance(Napi::External<CCfits::PHDU>::New(env, &phdu));
 }
