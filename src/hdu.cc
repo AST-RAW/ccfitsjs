@@ -22,6 +22,7 @@ void Hdu::GetClass(Napi::Env env, Napi::Object exports) {
             Hdu::InstanceMethod("bitpix", &Hdu::Bitpix),
             Hdu::InstanceMethod("comment", &Hdu::Comment),
             Hdu::InstanceMethod("keyWord", &Hdu::KeyWord),
+            Hdu::InstanceMethod("read", &Hdu::Read),
         });
 
     constructor = Napi::Persistent(func);
@@ -97,7 +98,9 @@ Napi::Value Hdu::KeyWord(const Napi::CallbackInfo& info) {
 Napi::Value Hdu::Read(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
-    std::valarray<unsigned long> a;
+    std::valarray<unsigned short> data;
     this->_hdu->readAllKeys();
-    this->_hdu->read(a);
+    this->_hdu->read(data);
+
+    return Napi::Buffer<unsigned short>::Copy(env, static_cast<unsigned short*>(&data[0]), data.size());
 }

@@ -13,6 +13,7 @@
     "build": "node-gyp build"
   },
   "dependencies": {
+    "canvas": "^2.10.2",
     "node-addon-api": "^5.0.0"
   }
 }
