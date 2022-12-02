@@ -5,7 +5,19 @@
 Napi::FunctionReference Fits::constructor;
 
 Fits::Fits(const Napi::CallbackInfo& info) : ObjectWrap(info) {
+    Napi::Env env = info.Env();
 
+    if (info.Length() != 1) {
+        Napi::TypeError::New(env, "Wrong number of arguments").ThrowAsJavaScriptException();
+        return;
+    }
+
+    if (!info[0].IsString()) {
+        Napi::TypeError::New(env, "You need to set the filename").ThrowAsJavaScriptException();
+        return;
+    }
+
+    this->_filename = info[0].As<Napi::String>().Utf8Value().c_str();
 }
 
 void Fits::GetClass(Napi::Env env, Napi::Object exports) {
@@ -14,17 +26,6 @@ void Fits::GetClass(Napi::Env env, Napi::Object exports) {
     Napi::Function func = DefineClass(env, "Fits",
         {
             InstanceMethod("load", &Fits::Load),
-            /*InstanceMethod("connect", &IndiClient::Connect),
-            InstanceMethod("disconnect", &IndiClient::Disconnect),
-            InstanceAccessor("connected", &IndiClient::IsConnected, nullptr),
-            InstanceMethod("watchDevice", &IndiClient::WatchDevice),
-            InstanceMethod("setBLOBMode", &IndiClient::SetBLOBMode),
-            InstanceMethod("getDevice", &IndiClient::GetDevice),
-            InstanceMethod("getDevices", &IndiClient::GetDevices),
-            InstanceMethod("connectDevice", &IndiClient::ConnectDevice),
-            InstanceMethod("sendNewNumber", &IndiClient::SendNewNumber),
-            InstanceMethod("sendNewSwitch", &IndiClient::SendNewSwitch),
-            InstanceMethod("sendNewText", &IndiClient::SendNewText),*/
         });
 
     constructor = Napi::Persistent(func);
@@ -39,12 +40,10 @@ Napi::Object Fits::NewInstance(Napi::Value arg) {
 }
 
 Napi::Value Fits::Load(const Napi::CallbackInfo& info) {
-  Napi::Env env = info.Env();
-  this->_fits = new CCfits::FITS("./fits/test.fits", CCfits::Read, true);
+    Napi::Env env = info.Env();
 
-  CCfits::PHDU& phdu = this->_fits->pHDU();
-
-  //return Napi::Buffer<char>::Copy(env, static_cast<char*>(getHandle()->blob), getHandle()->bloblen);
-
-  return Hdu::NewInstance(Napi::External<CCfits::PHDU>::New(env, &phdu));
+    this->_fits = new CCfits::FITS(this->_filename, CCfits::Read, true);
+    CCfits::PHDU& phdu = this->_fits->pHDU();
+    
+    return Hdu::NewInstance(Napi::External<CCfits::PHDU>::New(env, &phdu));
 }

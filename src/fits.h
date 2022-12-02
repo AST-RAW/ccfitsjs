@@ -13,8 +13,8 @@ class Fits : public Napi::ObjectWrap<Fits> {
     Napi::Value Load(const Napi::CallbackInfo&);
 
   private:
-    Napi::ThreadSafeFunction _tsfn;
     static Napi::FunctionReference constructor;
 
     CCfits::FITS *_fits;
+    std::string _filename;
 };
