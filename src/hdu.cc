@@ -98,9 +98,21 @@ Napi::Value Hdu::KeyWord(const Napi::CallbackInfo& info) {
 Napi::Value Hdu::Read(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
 
-    std::valarray<unsigned short> data;
-    this->_hdu->readAllKeys();
-    this->_hdu->read(data);
+    ReadWorker* wk = new ReadWorker(env, this->_hdu);
 
-    return Napi::Buffer<unsigned short>::Copy(env, static_cast<unsigned short*>(&data[0]), data.size());
+    wk->Queue();
+
+    return wk->Deferred().Promise();
+}
+
+// worker implementations
+
+void Hdu::ReadWorker::Execute() {
+    // this->_hdu->readAllKeys(this->_data);
+    this->_phdu->read(this->_data);
+}
+
+Napi::Value Hdu::ReadWorker::GetResolve() {
+    return Napi::Buffer<unsigned short>::Copy(
+        Env(), static_cast<unsigned short*>(&this->_data[0]), this->_data.size());
 }

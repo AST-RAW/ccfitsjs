@@ -2,6 +2,7 @@
 
 #include <CCfits>
 #include <napi.h>
+#include "promise.h"
 
 class Hdu : public Napi::ObjectWrap<Hdu> {
   public:
@@ -14,15 +15,24 @@ class Hdu : public Napi::ObjectWrap<Hdu> {
     Napi::Value Comment(const Napi::CallbackInfo&);
     Napi::Value KeyWord(const Napi::CallbackInfo&);
     Napi::Value Read(const Napi::CallbackInfo&);
+    Napi::Value PHDU(const Napi::CallbackInfo&);
 
   private:
+    class ReadWorker;
+
     static Napi::FunctionReference constructor;
     CCfits::PHDU* _hdu;
 };
 
-/*
+class Hdu::ReadWorker : public PromiseWorker {
+  public:
+    ReadWorker(Napi::Env env, CCfits::PHDU* phdu) : PromiseWorker(env), _phdu(phdu){};
 
-  //return Napi::String::New(env, phdu.getComments());
-  //return Napi::Number::New(env, phdu.bitpix());
-  //return info.Env().Undefined();
-  /*/
+    void Execute();
+    Napi::Value GetResolve();
+    // Napi::Value GetReject(const Napi::Error& e);
+
+  private:
+    CCfits::PHDU* _phdu;
+    std::valarray<unsigned short> _data;
+};
