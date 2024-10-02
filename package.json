@@ -1,6 +1,7 @@
 {
   "name": "@atoy40/ccfitsjs",
   "version": "0.0.1",
+  "main": "./index.js",
   "description": "Wrapper to the ccfits library",
   "author": {
     "name": "Anthony Hinsinger",
@@ -13,6 +14,7 @@
     "build": "node-gyp build"
   },
   "dependencies": {
+    "bindings": "^1.5.0",
     "canvas": "^2.10.2",
     "node-addon-api": "^5.0.0"
   }
