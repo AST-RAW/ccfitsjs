@@ -15,7 +15,7 @@ npm install @astraw/ccfitsjs
 Usage
 ---
 
-```
+```typescript
 import { Fits } from "@astraw/ccfitsjs";
 
 const open = async (filename: string) => {
