@@ -3,7 +3,6 @@ const { createCanvas, ImageData } = require("canvas");
 const fs = require("fs");
 
 function scurve(value, k, a) {
-
   return Math.pow((1 / (1+Math.exp(-k*value))), a);
 }
 

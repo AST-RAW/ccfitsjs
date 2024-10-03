@@ -65,8 +65,6 @@ Napi::Object Fits::NewInstance(Napi::Value arg) {
 // worker implementations
 
 void Fits::OpenWorker::Execute() {
-    std::cout << "create fits" << std::endl;
-
     try {
         *this->_fits = new CCfits::FITS(this->_filename, CCfits::Read, false);
     } catch (const CCfits::FitsException &e) {
