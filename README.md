@@ -3,6 +3,8 @@ CCFitsjs
 
 A nodejs wrapper of the ccfits library
 
+The CCfits library provides an interface that allows the user to manipulate FITS format data through the high-level building blocks of FITS files and Header-Data Units (HDUs).
+
 Installation
 ---
 
