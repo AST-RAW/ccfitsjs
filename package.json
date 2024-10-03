@@ -1,7 +1,8 @@
 {
-  "name": "@atoy40/ccfitsjs",
+  "name": "@astraw/ccfitsjs",
   "version": "0.0.1",
-  "main": "./index.js",
+  "main": "dist/binding.js",
+  "types": "dist/binding.d.ts",
   "description": "Wrapper to the ccfits library",
   "author": {
     "name": "Anthony Hinsinger",
@@ -10,11 +11,17 @@
   "license": "ISC",
   "gypfile": true,
   "scripts": {
+    "pretest": "tsc",
+    "prepare": "tsc",
     "prebuild": "node-gyp configure",
-    "build": "node-gyp build"
+    "build": "tsc && node-gyp build"
   },
   "dependencies": {
     "bindings": "^1.5.0",
     "node-addon-api": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "typescript": "^5.6.2"
   }
 }
