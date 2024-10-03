@@ -1,4 +1,4 @@
-CCFitsjs
+CCfitsjs
 ===
 
 A nodejs wrapper of the ccfits library
