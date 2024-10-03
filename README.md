@@ -26,9 +26,18 @@ const open = async (filename: string) => {
   console.log(phdu.getAxes());
   console.log(phdu.getComment());
   console.log(phdu.getKeyword());
+  console.log(phdu.getBitpix());
 
-  const buffer = await phdu.read();
-};
+  const data = await phdu.read();
+  const data16b = new Uint16Array(data.buffer); // for a 16bit access
+  const axes = phdu.getAxes();
+
+  for (let i = 0; i < axes[1]; i++) {
+    for (let j = 0; j < axes[0]; j++) {
+      doSomething(data16b[i * axes[0] + j]);
+    }
+  }
+}
 
 open(process.argv[2]);
 ```
