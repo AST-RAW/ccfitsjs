@@ -18,10 +18,10 @@ void Hdu::GetClass(Napi::Env env, Napi::Object exports) {
 
     Napi::Function func = DefineClass(env, "Hdu",
         {
-            Hdu::InstanceMethod("axes", &Hdu::Axes),
-            Hdu::InstanceMethod("bitpix", &Hdu::Bitpix),
-            Hdu::InstanceMethod("comment", &Hdu::Comment),
-            Hdu::InstanceMethod("keyWord", &Hdu::KeyWord),
+            Hdu::InstanceMethod("getAxes", &Hdu::Axes),
+            Hdu::InstanceMethod("getBitpix", &Hdu::Bitpix),
+            Hdu::InstanceMethod("getComment", &Hdu::Comment),
+            Hdu::InstanceMethod("getKeyword", &Hdu::KeyWord),
             Hdu::InstanceMethod("read", &Hdu::Read),
         });
 

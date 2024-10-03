@@ -48,7 +48,7 @@ void Fits::GetClass(Napi::Env env, Napi::Object exports) {
     Napi::Function func = DefineClass(env, "Fits",
         {
             InstanceMethod("open", &Fits::Open),
-            InstanceMethod("pHDU", &Fits::PHDU),
+            InstanceMethod("getPHDU", &Fits::PHDU),
         });
 
     constructor = Napi::Persistent(func);

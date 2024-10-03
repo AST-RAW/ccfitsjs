@@ -1,21 +1,21 @@
 var addon = require("bindings")("ccfits-native");
 
-interface keyWord {
+interface Keyword {
   [index: string]: number | string;
 }
 
-interface pHDU {
-  comment(): string;
-  axes(): number[];
-  bitpix(): number;
-  keyWord(): keyWord;
+interface PHDU {
+  getComment(): string;
+  getAxes(): number[];
+  getBitpix(): number;
+  getKeyword(): Keyword;
   read(): Promise<Buffer>;
 }
 
 interface Fits {
   new (file: string): Fits;
   open(): Promise<boolean>;
-  pHDU(): Promise<pHDU>;
+  getPHDU(): Promise<PHDU>;
 }
 
 export const Fits: Fits = addon.Fits;
