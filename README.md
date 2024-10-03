@@ -21,11 +21,11 @@ import { Fits } from "@astraw/ccfitsjs";
 const open = async (filename: string) => {
   const fits = new Fits(filename);
   await fits.open();
-  const phdu = await fits.pHDU();
+  const phdu = await fits.getPHDU();
 
-  console.log(phdu.axes());
-  console.log(phdu.comment());
-  console.log(phdu.keyWord());
+  console.log(phdu.getAxes());
+  console.log(phdu.getComment());
+  console.log(phdu.getKeyword());
 
   const buffer = await phdu.read();
 };
